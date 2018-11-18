@@ -12,7 +12,7 @@
             }
             #chatWindow {
                 height: 300px;
-                overflow: auto;
+                overflow: scroll;
             }
             #mainWrapper {
                 display: none;
@@ -77,6 +77,11 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
+            window.setInterval(function() {
+                var elem = document.getElementById('chatWindow');
+                elem.scrollTop = elem.scrollHeight;
+            }, 5000);
+
             $(function() {
                 var socket = io.connect();
                 var $messageForm = $('#messageForm');
