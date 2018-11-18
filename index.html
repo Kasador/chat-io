@@ -72,7 +72,7 @@
                     <div id="chatWindow"></div>
                     <form id="messageForm">
                         <input type="text" size="35" id="message" placeholder="Say Something...">
-                        <input type="submit" value="Submit" onClick="scrollToBottom('chatWindow')">
+                        <input type="submit" value="Send" onClick="scrollToBottom()">
                     </form>
                 </div>
                 <div id="userWrapper">
@@ -84,11 +84,13 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
-            function scrollToBottom (id) {
-                var div = document.getElementById(id);
+            function scrollToBottom () {
+                var div = document.getElementById('chatWindow');
                 div.scrollTop = div.scrollHeight - div.clientHeight;
             }
-
+            
+            window.setInterval(scrollToBottom, 1000);
+            
             $(function() {
                 var socket = io.connect();
                 var $messageForm = $('#messageForm');
