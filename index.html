@@ -12,7 +12,12 @@
             }
             #chatWindow {
                 height: 300px;
-                overflow: scroll;
+                overflow: auto;
+                margin-bottom: 20px;
+                background-color: #f2c9c9;
+                padding: 20px;
+                border-radius: 10px;
+                border: 2px solid black;
             }
             #mainWrapper {
                 display: none;
@@ -65,7 +70,7 @@
                     <div id="chatWindow"></div>
                     <form id="messageForm">
                         <input type="text" size="35" id="message" placeholder="Say Something...">
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="Submit" onClick="scrollToBottom('chatWindow')">
                     </form>
                 </div>
                 <div id="userWrapper">
@@ -77,10 +82,10 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
-            window.setInterval(function() {
-                var elem = document.getElementById('chatWindow');
-                elem.scrollTop = elem.scrollHeight;
-            }, 5000);
+            function scrollToBottom (id) {
+                var div = document.getElementById(id);
+                div.scrollTop = div.scrollHeight - div.clientHeight;
+            }
 
             $(function() {
                 var socket = io.connect();
