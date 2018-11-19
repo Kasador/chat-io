@@ -1,3 +1,7 @@
+const sanitize = (str) => {
+    return String(str).replace(/&/g, ' ').replace(/</g, ' ').replace(/>/g, ' ').replace(/"/g, ' ').replace(/nbsp;/gi,'');
+};
+
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
@@ -15,6 +19,8 @@ io.sockets.on('connection', function(socket) {
     console.log('Socket Connected...');
 
     socket.on('new user', function(data, callback) {
+        data = sanitize(data);
+
         if(usernames.indexOf(data) != -1) {
             callback(false);
         } else {
@@ -32,6 +38,7 @@ io.sockets.on('connection', function(socket) {
 
     // Send Message 
     socket.on('send message', function(data) {
+        data = sanitize(data);
         io.sockets.emit('new message', {msg: data, user: socket.username});
 
     });
